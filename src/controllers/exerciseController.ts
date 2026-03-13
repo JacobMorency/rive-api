@@ -24,6 +24,10 @@ const data: Exercise[] = [
   },
 ];
 
+/**
+ * GET /exercises
+ * Returns all exercises in the database
+ */
 export const getAllExercises = (_req: Request, res: Response) => {
   res.status(200).json(data);
 };
