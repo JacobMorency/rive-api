@@ -2,8 +2,9 @@
   "name": "rive-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/JacobMorency/rive-api/issues"
   },
-  "homepage": "https://github.com/JacobMorency/rive-api#readme"
+  "homepage": "https://github.com/JacobMorency/rive-api#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
 }
