@@ -1,8 +1,8 @@
-import express from "express";
+import express, { Application } from "express";
 import exerciseRoutes from "./routes/exercises.js";
 import workoutRoutes from "./routes/workouts.js";
 
-const app = express();
+const app: Application = express();
 
 app.use("/exercises", exerciseRoutes);
 app.use("/workouts", workoutRoutes);

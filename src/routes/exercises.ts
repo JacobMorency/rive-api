@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getAllExercises } from "../controllers/exerciseController.js";
 
-const router = Router();
+const router: Router = Router();
 
 router.get("/", getAllExercises);
 
