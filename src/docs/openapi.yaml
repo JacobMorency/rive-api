@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: Rive API
+  description: API for managing exercises in Rive
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5001
+
+paths:
+  /exercises:
+    get:
+      summary: Get all exercises
+      description: Returns a list of all exercises from the database
+      responses:
+        "200":
+          description: A list of all exercises
