@@ -30,7 +30,22 @@ export const getAvailableExercisesForUser = async (
   req: Request,
   res: Response,
 ) => {
-  const userId: string = USER_ID;
+  const userId: string = USER_ID; // TODO: Dynamically fetch this
   const exercises = await exerciseService.getAvailableExercisesForUser(userId);
   res.status(200).json(exercises);
+};
+
+/**
+ * POST /exercises/custom/create
+ * Allows user to create their own custom exercise on the user_exercises table
+ */
+export const createCustomExercise = async (req: Request, res: Response) => {
+  const userId: string = USER_ID; // TODO: Dynamically fetch this
+  const { name, category } = req.body;
+  const exercise = await exerciseService.createCustomExercise(
+    userId,
+    name,
+    category,
+  );
+  res.status(201).json(exercise);
 };

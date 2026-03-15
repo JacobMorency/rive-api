@@ -61,3 +61,18 @@ export const getAvailableExercisesForUser = async (userId: string) => {
 
   return exercises;
 };
+
+export const createCustomExercise = async (
+  userId: string,
+  name: string,
+  category: string,
+) => {
+  const { data: exercise, error } = await supabase
+    .from("user_exercises")
+    .insert([{ user_id: userId, name: name, category: category }])
+    .select();
+
+  if (error) throw error;
+
+  return exercise;
+};

@@ -8,6 +8,8 @@ const swaggerDocument = YAML.load("./src/docs/openapi.yaml");
 
 const app: Application = express();
 
+app.use(express.json());
+
 app.use("/exercises", exerciseRoutes);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
