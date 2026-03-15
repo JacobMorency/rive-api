@@ -1,6 +1,8 @@
 import { supabase } from "../config/supabase.js";
+import { Exercise, UserExercise } from "../types/exercise.js";
 
-export const getAllExercises = async () => {
+// Gets all exercises in the exercise_library table only
+export const getLibraryExercises = async () => {
   const { data: exercises, error } = await supabase
     .from("exercise_library")
     .select("*");
@@ -10,7 +12,8 @@ export const getAllExercises = async () => {
   return exercises;
 };
 
-export const getExerciseById = async (id: number) => {
+// Gets a specific exercise from the exercise_library table
+export const getLibraryExerciseById = async (id: number) => {
   const { data: exercise, error } = await supabase
     .from("exercise_library")
     .select()
@@ -29,4 +32,32 @@ export const getExerciseById = async (id: number) => {
   }
 
   return exercise;
+};
+
+export const getAvailableExercisesForUser = async (userId: string) => {
+  const { data: libraryExercises, error: libraryError } = await supabase
+    .from("exercise_library")
+    .select("*");
+
+  const { data: userExercises, error: userError } = await supabase
+    .from("user_exercises")
+    .select("id, name, category")
+    .eq("user_id", userId);
+
+  if (libraryError) throw libraryError;
+  if (userError) throw userError;
+
+  const formattedLibrary = libraryExercises.map((e) => ({
+    ...e,
+    source: "library",
+  }));
+
+  const formattedUser = userExercises.map((e) => ({
+    ...e,
+    source: "custom",
+  }));
+
+  const exercises = [...formattedLibrary, ...formattedUser];
+
+  return exercises;
 };

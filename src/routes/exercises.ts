@@ -1,12 +1,11 @@
 import { Router } from "express";
-import {
-  getAllExercises,
-  getExerciseById,
-} from "../controllers/exerciseController.js";
+
+import * as exerciseController from "../controllers/exerciseController.js";
 
 const router: Router = Router();
 
-router.get("/", getAllExercises);
-router.get("/:id", getExerciseById);
+router.get("/library", exerciseController.getLibraryExercises);
+router.get("/library/:id", exerciseController.getLibraryExerciseById);
+router.get("/", exerciseController.getAvailableExercisesForUser);
 
 export default router;
