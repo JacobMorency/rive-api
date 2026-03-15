@@ -10,3 +10,10 @@ export type UserExercise = {
   name: string;
   category: string;
 };
+
+export type AvailableExercise = {
+  id: number;
+  name: string;
+  category: string;
+  source: "custom" | "library";
+};
