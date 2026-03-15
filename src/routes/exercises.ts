@@ -8,5 +8,6 @@ router.get("/library", exerciseController.getLibraryExercises);
 router.get("/library/:id", exerciseController.getLibraryExerciseById);
 router.get("/", exerciseController.getAvailableExercisesForUser);
 router.post("/custom/create", exerciseController.createCustomExercise);
+router.delete("/custom/:id", exerciseController.deleteCustomExercise);
 
 export default router;
