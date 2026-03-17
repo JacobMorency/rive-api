@@ -42,6 +42,10 @@ export const getCustomExerciseById = async (
 
   if (error) throw error;
 
+  if (!exercise || exercise.length === 0) {
+    throw new Error("Exercise not found");
+  }
+
   return exercise;
 };
 
@@ -115,14 +119,34 @@ export const deleteCustomExercise = async (
   }
 };
 
-// export const updateCustomExercise = async (
-//   id: number,
-//   userId: string,
-//   newName?: string,
-//   newCategory?: string,
-// ): Promise<UserExercise> => {
-//   const { data: exercise, error } = await supabase
-//     .from("user_exercises")
-//     .update({ name: (newName || exercise.name), category: newCategory });
-//   return;
-// };
+export const updateCustomExercise = async (
+  userId: string,
+  id: number,
+  newName?: string,
+  newCategory?: string,
+): Promise<UserExercise> => {
+  const updates: Partial<Pick<UserExercise, "name" | "category">> = {};
+
+  if (newName !== undefined) updates.name = newName;
+  if (newCategory !== undefined) updates.category = newCategory;
+
+  if (Object.keys(updates).length === 0) {
+    throw new Error("No valid fields provided to update");
+  }
+
+  const { data: exercise, error } = await supabase
+    .from("user_exercises")
+    .update(updates)
+    .eq("user_id", userId)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  if (!exercise || exercise.length === 0) {
+    throw new Error("Exercise not found");
+  }
+
+  return exercise;
+};

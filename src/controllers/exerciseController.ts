@@ -82,10 +82,29 @@ export const deleteCustomExercise = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const userId: string = USER_ID; // TODO: Dynamically fetch this
+  const userId = USER_ID; // TODO: Dynamically fetch this
   const id = Number(req.params.id);
   await exerciseService.deleteCustomExercise(userId, id);
   res.status(204).send();
 };
 
-export const updateCustomExercise = async (): Promise<void> => {};
+/**
+ * PUT /exercises/custom/id
+ * Allows user to update an exercise in the users_exercises table.
+ */
+export const updateCustomExercise = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const userId = USER_ID;
+  const id = Number(req.params.id);
+  const { name, category } = req.body;
+
+  const exercise = await exerciseService.updateCustomExercise(
+    userId,
+    id,
+    name,
+    category,
+  );
+  res.status(200).json(exercise);
+};
