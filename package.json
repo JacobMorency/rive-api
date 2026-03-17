@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,8 +30,13 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
+    "@types/supertest": "^7.2.0",
     "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
