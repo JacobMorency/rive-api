@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as exerciseService from "../services/exerciseService.js";
-import { Exercise } from "../types/exercise.js";
+import { Exercise, UserExercise } from "../types/exercise.js";
 
 const USER_ID: string = "f955de2d-7df9-4e33-817c-b937a926eb83";
 
@@ -26,6 +26,20 @@ export const getLibraryExerciseById = async (
 ): Promise<void> => {
   const id = Number(req.params.id);
   const exercise = await exerciseService.getLibraryExerciseById(id);
+  res.status(200).json(exercise);
+};
+
+/**
+ * GET /exercises/custom/:id
+ * Returns specific exercise based on it's id from the user_exercises table
+ */
+export const getCustomExerciseById = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const id = Number(req.params.id);
+  const userId = USER_ID;
+  const exercise = await exerciseService.getCustomExerciseById(id, userId);
   res.status(200).json(exercise);
 };
 
@@ -73,3 +87,5 @@ export const deleteCustomExercise = async (
   await exerciseService.deleteCustomExercise(userId, id);
   res.status(204).send();
 };
+
+export const updateCustomExercise = async (): Promise<void> => {};

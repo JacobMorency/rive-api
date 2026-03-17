@@ -29,6 +29,22 @@ export const getLibraryExerciseById = async (id: number): Promise<Exercise> => {
   return exercise;
 };
 
+export const getCustomExerciseById = async (
+  id: number,
+  userId: string,
+): Promise<UserExercise> => {
+  const { data: exercise, error } = await supabase
+    .from("user_exercises")
+    .select()
+    .eq("id", id)
+    .eq("user_id", userId)
+    .single();
+
+  if (error) throw error;
+
+  return exercise;
+};
+
 export const getAvailableExercisesForUser = async (
   userId: string,
 ): Promise<AvailableExercise[]> => {
@@ -98,3 +114,15 @@ export const deleteCustomExercise = async (
     throw new Error("Exercise not found");
   }
 };
+
+// export const updateCustomExercise = async (
+//   id: number,
+//   userId: string,
+//   newName?: string,
+//   newCategory?: string,
+// ): Promise<UserExercise> => {
+//   const { data: exercise, error } = await supabase
+//     .from("user_exercises")
+//     .update({ name: (newName || exercise.name), category: newCategory });
+//   return;
+// };
